@@ -8,16 +8,39 @@ function EnigmaMachine() {
   const alphaCodes = Array.from(Array(26)).map((e, i) => i + 97);
   const alphabet = alphaCodes.map((e, i) => i + 97).map((x) => String.fromCharCode(x));
 
-  const plugBoardSettings = new Map(
+  const [plugBoardMappings, setPlugBoardMappings] = React.useState(new Map(
     alphabet.map((alpha) => [alpha, alpha]),
-  );
+  ));
+
+  const updatePlugMappings = (plug1, plug2) => {
+    let mappings = new Map(plugBoardMappings)
+
+    const plug1Mapping = mappings.get(plug1)
+    const plug2Mapping = mappings.get(plug2)
+
+    if (plug1Mapping !== plug1) {
+      mappings.set(plug1Mapping, plug1Mapping)
+    }
+    if (plug2 !== null && plug2Mapping !== plug2) {
+      mappings.set(plug2Mapping, plug2Mapping)
+    }
+
+    mappings.set(plug1, plug2)
+
+    if (plug2 !== null ) {
+      mappings.set(plug2, plug1)
+    }
+
+    setPlugBoardMappings(mappings)
+  }
 
   return (
     <div className="EnigmaMachine">
       <LightBoard/>
       <Keyboard/>
       <PlugBoard
-        settings={plugBoardSettings}
+        mappings={plugBoardMappings}
+        updateMappingsFunc={updatePlugMappings}
       />
     </div>
   );
@@ -32,15 +55,34 @@ function LightBoard() {
 }
 
 function PlugBoard(props) {
-  const plugs = []
+  const [initialPlugConnection, setInitialPlugConnection] = React.useState(null)
+  const [currentlyConnectingPlugs, setCurrentlyConnectingPlugs] = React.useState(false)
+  const plugComponents = []
 
-  for (const [k, v] of props.settings) {
-    plugs.push(
+  const handlePlugClick = (plug) => {
+    let currentlyConnecting = false
+    let plugs = [initialPlugConnection, plug]
+
+    if (!currentlyConnectingPlugs) {
+      currentlyConnecting = true
+      setInitialPlugConnection(plug)
+      plugs = [plug, null]
+    } else if (initialPlugConnection === plug) {
+      setCurrentlyConnectingPlugs(false)
+      plugs = [plug, plug]
+    }
+
+    setCurrentlyConnectingPlugs(currentlyConnecting)
+    props.updateMappingsFunc(...plugs)
+  }
+
+  for (const [k, v] of props.mappings) {
+    plugComponents.push(
       <Plug
         key={k}
         letter={k}
         connectedTo={v}
-        onClick={(letter) => console.log(letter)}
+        onClick={(letter) => handlePlugClick(letter)}
       />
     )
   }
@@ -48,22 +90,26 @@ function PlugBoard(props) {
   return (
     <div className="PlugBoard">
       Plug Board
-      {plugs}
+      {plugComponents}
     </div>
   );
 }
 
 function Plug(props) {
   const letter = props.letter;
-  const connectedTo = props.connectedTo || letter;
-  const connected = letter !== connectedTo;
+  const connectedTo = props.connectedTo;
+  const connected = connectedTo !== null && letter !== connectedTo;
+  const connecting = connectedTo === null;
 
   return (
     <div
       className={
         classNames(
           "Plug",
-          { connected: connected },
+          {
+            connected: connected,
+            connecting: connecting,
+          },
         )
       }
       onClick={() => props.onClick(letter)}

@@ -14,6 +14,11 @@
   font-weight: bold;
 }
 
+.Plug.connecting {
+  color: crimson;
+  font-style: italic;
+}
+
 .LightBoard {
   background-color: coral;
 }
