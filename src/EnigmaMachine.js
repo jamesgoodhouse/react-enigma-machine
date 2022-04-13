@@ -1,7 +1,27 @@
 import React from 'react';
 import {default as SimpleKeyboard} from 'react-simple-keyboard';
+import classNames from 'classnames';
 import "react-simple-keyboard/build/css/index.css";
 import './EnigmaMachine.css';
+
+function EnigmaMachine() {
+  const alphaCodes = Array.from(Array(26)).map((e, i) => i + 97);
+  const alphabet = alphaCodes.map((e, i) => i + 97).map((x) => String.fromCharCode(x));
+
+  const plugBoardSettings = new Map(
+    alphabet.map((alpha) => [alpha, alpha]),
+  );
+
+  return (
+    <div className="EnigmaMachine">
+      <LightBoard/>
+      <Keyboard/>
+      <PlugBoard
+        settings={plugBoardSettings}
+      />
+    </div>
+  );
+}
 
 function LightBoard() {
   return (
@@ -11,23 +31,18 @@ function LightBoard() {
   );
 }
 
-function Plug(props) {
-  const [letter, setLetter] = React.useState(props.letter);
-  const [connectedTo, setconnectedTo] = React.useState(props.connectedTo || props.letter);
-  const [connectedToSelf, setConnectedToSelf] = React.useState(props.letter === props.connectedTo);
-
-  return (
-    <div className="Plug" onClick={() => console.log(letter)}>
-      Plug {letter} (connects {letter} to {connectedTo})
-    </div>
-  )
-}
-
 function PlugBoard(props) {
   const plugs = []
 
   for (const [k, v] of props.settings) {
-    plugs.push(<Plug key={k} letter={k} connectedTo={v}/>)
+    plugs.push(
+      <Plug
+        key={k}
+        letter={k}
+        connectedTo={v}
+        onClick={(letter) => console.log(letter)}
+      />
+    )
   }
 
   return (
@@ -36,6 +51,26 @@ function PlugBoard(props) {
       {plugs}
     </div>
   );
+}
+
+function Plug(props) {
+  const letter = props.letter;
+  const connectedTo = props.connectedTo || letter;
+  const connected = letter !== connectedTo;
+
+  return (
+    <div
+      className={
+        classNames(
+          "Plug",
+          { connected: connected },
+        )
+      }
+      onClick={() => props.onClick(letter)}
+    >
+      {letter} (connects {letter} to {connectedTo})
+    </div>
+  )
 }
 
 function Keyboard() {
@@ -72,25 +107,6 @@ function Keyboard() {
         physicalKeyboardHighlightPress='true'
         physicalKeyboardHighlightPressUsePointerEvents='true'
         useButtonTag='true'
-      />
-    </div>
-  );
-}
-
-function EnigmaMachine() {
-  const alphaCodes = Array.from(Array(26)).map((e, i) => i + 97);
-  const alphabet = alphaCodes.map((e, i) => i + 97).map((x) => String.fromCharCode(x));
-
-  const [plugBoardSettings, setPlugBoardSettings] = React.useState(new Map(
-    alphabet.map((alpha) => [alpha, alpha]),
-  ));
-
-  return (
-    <div className="EnigmaMachine">
-      <LightBoard/>
-      <Keyboard/>
-      <PlugBoard
-        settings={plugBoardSettings}
       />
     </div>
   );
