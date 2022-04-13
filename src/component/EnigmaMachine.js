@@ -18,9 +18,11 @@ function EnigmaMachine() {
 
   const handleKeyPressed = (key) => {
     const plugVal = plugboardMappings.get(key)
-    const l = new Map(lights)
-    l.set(plugVal, true)
-    setLights(l)
+    if (plugVal !== null) {
+      const l = new Map(lights)
+      l.set(plugVal, true)
+      setLights(l)
+    }
   }
 
   const handleKeyReleased = (key) => {
@@ -33,14 +35,20 @@ function EnigmaMachine() {
   const updatePlugMappings = (plug1, plug2) => {
     let mappings = new Map(plugboardMappings)
 
-    const plug1Mapping = mappings.get(plug1)
-    const plug2Mapping = mappings.get(plug2)
+    const plug1CurrentMapping = mappings.get(plug1)
+    const plug2CurrentMapping = mappings.get(plug2)
 
-    if (plug1Mapping !== null && plug1Mapping !== plug1) {
-      mappings.set(plug1Mapping, plug1Mapping)
+    if (plug1 === null) {
+      console.log('something went wrong')
+      return
     }
-    if (plug2 !== null && plug2Mapping !== plug2) {
-      mappings.set(plug2Mapping, plug2Mapping)
+
+    // check if plug is mapped to something other than itself
+    if (plug1CurrentMapping !== null && plug1CurrentMapping !== plug1) {
+      mappings.set(plug1CurrentMapping, plug1CurrentMapping)
+    }
+    if (plug2 !== null && plug2CurrentMapping !== plug2 && plug2CurrentMapping !== null) {
+      mappings.set(plug2CurrentMapping, plug2CurrentMapping)
     }
 
     mappings.set(plug1, plug2)
