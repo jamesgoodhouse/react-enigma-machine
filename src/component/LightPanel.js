@@ -1,24 +1,39 @@
+import classNames from 'classnames';
 import './LightPanel.css';
 
 function LightPanel(props) {
-  const lights = props.lights.map((light) =>
-    <Light
-      key={light}
-      letter={light}
-    />
-  );
+  const lightComponents = []
+
+  for (const [letter, illum] of props.lights) {
+    lightComponents.push(
+      <Light
+        key={letter}
+        letter={letter}
+        illuminated={illum}
+      />
+    )
+  }
 
   return (
     <div className="LightPanel">
       Light Panel
-      {lights}
+      {lightComponents}
     </div>
   );
 }
 
 function Light(props) {
   return (
-    <div className="Light">
+    <div
+      className={
+        classNames(
+          "Light",
+          {
+            illuminated: props.illuminated,
+          }
+        )
+      }
+    >
       {props.letter}
     </div>
   );

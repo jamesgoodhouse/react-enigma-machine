@@ -5,3 +5,7 @@
 .LightPanel .Light {
   background-color: lightcoral;
 }
+
+.LightPanel .Light.illuminated {
+  background-color: green;
+}

@@ -12,6 +12,24 @@ function EnigmaMachine() {
     alphabet.map((alpha) => [alpha, alpha]),
   ));
 
+  const [lights, setLights] = React.useState(new Map(
+    alphabet.map(alpha => [alpha, false])
+  ));
+
+  const handleKeyPressed = (key) => {
+    const plugVal = plugboardMappings.get(key)
+    const l = new Map(lights)
+    l.set(plugVal, true)
+    setLights(l)
+  }
+
+  const handleKeyReleased = (key) => {
+    const l = new Map(
+      alphabet.map(alpha => [alpha, false])
+    )
+    setLights(l)
+  }
+
   const updatePlugMappings = (plug1, plug2) => {
     let mappings = new Map(plugboardMappings)
 
@@ -37,9 +55,12 @@ function EnigmaMachine() {
   return (
     <div className="EnigmaMachine">
       <LightPanel
-        lights={alphabet}
+        lights={lights}
       />
-      <Keyboard/>
+      <Keyboard
+        onKeyDown={key => handleKeyPressed(key)}
+        onKeyUp={key => handleKeyReleased(key)}
+      />
       <Plugboard
         mappings={plugboardMappings}
         updateMappingsFunc={updatePlugMappings}

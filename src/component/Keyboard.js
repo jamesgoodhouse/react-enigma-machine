@@ -1,11 +1,8 @@
-import React from 'react';
 import {default as SimpleKeyboard} from 'react-simple-keyboard';
 import "react-simple-keyboard/build/css/index.css";
 import './Keyboard.css';
 
-function Keyboard() {
-  const [button, setButton] = React.useState("");
-
+function Keyboard(props) {
   const layout = [
     "q w e r t y u i o p",
     "a s d f g h j k l",
@@ -13,11 +10,11 @@ function Keyboard() {
   ];
 
   const onKeyReleased = button => {
-    setButton("")
+    props.onKeyUp(button);
   };
 
   const onKeyPress = keyPressed => {
-    setButton(keyPressed);
+    props.onKeyDown(keyPressed);
   };
 
   return (
