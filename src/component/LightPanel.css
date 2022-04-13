@@ -1,0 +1,7 @@
+.LightPanel {
+  background-color: coral;
+}
+
+.LightPanel .Light {
+  background-color: lightcoral;
+}

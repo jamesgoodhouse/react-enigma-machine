@@ -1,0 +1,17 @@
+.Plugboard {
+  background-color: lightgreen;
+}
+
+.Plugboard .Plug {
+  background-color: lightblue;
+}
+
+.Plugboard .Plug.connected {
+  font-weight: bold;
+}
+
+.Plugboard .Plug.connecting {
+  color: crimson;
+  font-style: italic;
+}
+
