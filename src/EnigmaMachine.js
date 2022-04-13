@@ -56,23 +56,20 @@ function LightBoard() {
 
 function PlugBoard(props) {
   const [initialPlugConnection, setInitialPlugConnection] = React.useState(null)
-  const [currentlyConnectingPlugs, setCurrentlyConnectingPlugs] = React.useState(false)
   const plugComponents = []
 
   const handlePlugClick = (plug) => {
-    let currentlyConnecting = false
     let plugs = [initialPlugConnection, plug]
+    let plugConnection = null
 
-    if (!currentlyConnectingPlugs) {
-      currentlyConnecting = true
-      setInitialPlugConnection(plug)
+    if (initialPlugConnection === null) {
+      plugConnection = plug
       plugs = [plug, null]
     } else if (initialPlugConnection === plug) {
-      setCurrentlyConnectingPlugs(false)
       plugs = [plug, plug]
     }
 
-    setCurrentlyConnectingPlugs(currentlyConnecting)
+    setInitialPlugConnection(plugConnection)
     props.updateMappingsFunc(...plugs)
   }
 
