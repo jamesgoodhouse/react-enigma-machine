@@ -3,6 +3,7 @@ import RotorAssembly from './RotorAssembly';
 import LightPanel from './LightPanel';
 import Keyboard from './Keyboard';
 import Plugboard from './Plugboard';
+import { Reflectors,Rotors } from './Rotor';
 import { alphabet } from './../util/alphabet';
 import './EnigmaMachine.css';
 
@@ -21,17 +22,16 @@ function EnigmaMachine() {
     const plugVal = plugboardMappings.get(key)
 
     if (plugVal !== null) {
-      const l = new Map(lights)
-      l.set(plugVal, true)
-      setLights(l)
+      setLights(new Map(lights.set(plugVal, true)))
     }
   }
 
   const handleKeyReleased = (key) => {
-    const l = new Map(
-      alphabet.map(alpha => [alpha, false])
-    )
-    setLights(l)
+    const plugVal = plugboardMappings.get(key)
+
+    if (plugVal !== null) {
+      setLights(new Map(lights.set(plugVal, false)))
+    }
   }
 
   // this hurts my head. not sure the fix, but likely need to rethink data structure
@@ -65,7 +65,14 @@ function EnigmaMachine() {
 
   return (
     <div className="EnigmaMachine">
-      <RotorAssembly/>
+      <RotorAssembly
+        rotors={[
+          Rotors.EnigmaI.I,
+          Rotors.EnigmaI.II,
+          Rotors.EnigmaI.III,
+        ]}
+        reflector={Reflectors.A}
+      />
       <LightPanel
         lights={lights}
       />

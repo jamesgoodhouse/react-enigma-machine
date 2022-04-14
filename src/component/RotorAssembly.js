@@ -7,11 +7,19 @@ function RotorAssembly(props) {
     <div className="RotorAssembly">
       <EntryWheel/>
       <div className="Rotors">
-        <Rotor/>
-        <Rotor/>
-        <Rotor/>
+        {props.rotors.map(rotor =>
+          <Rotor
+            key={rotor.id}
+            id={rotor.id}
+            encoding={rotor.encoding}
+            turnoverNotch={rotor.turnoverNotch}
+          />
+        )}
       </div>
-      <Reflector/>
+      <Reflector
+        id={props.reflector.id}
+        encoding={props.reflector.encoding}
+      />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import './Plugboard.css';
 
 function Plugboard(props) {
   const [initialPlugConnection, setInitialPlugConnection] = React.useState(null)
-  const plugComponents = []
 
   const handlePlugClick = (plug, connectedTo) => {
     let plugMapping = [initialPlugConnection, plug]
@@ -23,21 +22,17 @@ function Plugboard(props) {
     props.updateMappingsFunc(...plugMapping)
   }
 
-  for (const [plug1, plug2] of props.mappings) {
-    plugComponents.push(
-      <Plug
-        key={plug1}
-        letter={plug1}
-        connectedTo={plug2}
-        plugHandler={handlePlugClick}
-      />
-    )
-  }
-
   return (
     <div className="Plugboard">
       Plug Board
-      {plugComponents}
+      {[...props.mappings.keys()].map(k => (
+        <Plug
+          key={k}
+          letter={k}
+          connectedTo={props.mappings.get(k)}
+          plugHandler={handlePlugClick}
+        />
+      ))}
     </div>
   );
 }

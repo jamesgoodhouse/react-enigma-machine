@@ -1,7 +1,7 @@
 function Reflector(props) {
   return (
     <div className="Reflector">
-      Reflector
+      Reflector {props.id}
     </div>
   );
 }
