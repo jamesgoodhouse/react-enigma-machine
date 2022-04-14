@@ -3,12 +3,10 @@ import RotorAssembly from './RotorAssembly';
 import LightPanel from './LightPanel';
 import Keyboard from './Keyboard';
 import Plugboard from './Plugboard';
+import { alphabet } from './../util/alphabet';
 import './EnigmaMachine.css';
 
 function EnigmaMachine() {
-  const alphaCodes = Array.from(Array(26)).map((e, i) => i + 97);
-  const alphabet = alphaCodes.map((e, i) => i + 97).map((x) => String.fromCharCode(x));
-
   // setup initial mappings where a letter goes to itself
   const [plugboardMappings, setPlugboardMappings] = React.useState(new Map(
     alphabet.map((alpha) => [alpha, alpha]),
