@@ -8,10 +8,12 @@ function EnigmaMachine() {
   const alphaCodes = Array.from(Array(26)).map((e, i) => i + 97);
   const alphabet = alphaCodes.map((e, i) => i + 97).map((x) => String.fromCharCode(x));
 
+  // setup initial mappings where a letter goes to itself
   const [plugboardMappings, setPlugboardMappings] = React.useState(new Map(
     alphabet.map((alpha) => [alpha, alpha]),
   ));
 
+  // setup initial light map with false representing illumination
   const [lights, setLights] = React.useState(new Map(
     alphabet.map(alpha => [alpha, false])
   ));
@@ -32,6 +34,7 @@ function EnigmaMachine() {
     setLights(l)
   }
 
+  // this hurts my head. not sure the fix, but likely need to rethink data structure
   const updatePlugMappings = (plug1, plug2) => {
     let mappings = new Map(plugboardMappings)
 
@@ -66,8 +69,8 @@ function EnigmaMachine() {
         lights={lights}
       />
       <Keyboard
-        onKeyDown={key => handleKeyPressed(key)}
-        onKeyUp={key => handleKeyReleased(key)}
+        onKeyDown={handleKeyPressed}
+        onKeyUp={handleKeyReleased}
       />
       <Plugboard
         mappings={plugboardMappings}
