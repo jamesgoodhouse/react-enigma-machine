@@ -23,13 +23,13 @@ function Plugboard(props) {
     props.updateMappingsFunc(...plugMapping)
   }
 
-  for (const [k, v] of props.mappings) {
+  for (const [plug1, plug2] of props.mappings) {
     plugComponents.push(
       <Plug
-        key={k}
-        letter={k}
-        connectedTo={v}
-        onClick={(plug) => handlePlugClick(plug, v)}
+        key={plug1}
+        letter={plug1}
+        connectedTo={plug2}
+        plugHandler={handlePlugClick}
       />
     )
   }
@@ -59,7 +59,7 @@ function Plug(props) {
           },
         )
       }
-      onClick={() => props.onClick(letter)}
+      onClick={() => props.plugHandler(letter, connectedTo)}
     >
       {letter} (connects {letter} to {connectedTo === null ? '?' : connectedTo})
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import RotorAssembly from './RotorAssembly';
 import LightPanel from './LightPanel';
 import Keyboard from './Keyboard';
 import Plugboard from './Plugboard';
@@ -20,6 +21,7 @@ function EnigmaMachine() {
 
   const handleKeyPressed = (key) => {
     const plugVal = plugboardMappings.get(key)
+
     if (plugVal !== null) {
       const l = new Map(lights)
       l.set(plugVal, true)
@@ -65,6 +67,7 @@ function EnigmaMachine() {
 
   return (
     <div className="EnigmaMachine">
+      <RotorAssembly/>
       <LightPanel
         lights={lights}
       />
