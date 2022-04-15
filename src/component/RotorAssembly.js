@@ -1,36 +1,45 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import EntryWheel from './EntryWheel';
 import Reflector from './Reflector';
 import Rotor from './Rotor';
-import classNames from 'classnames';
 
-function RotorAssembly(props) {
+function RotorAssembly({ rotors, reflector }) {
+  const [ringSettings, setRingSettings] = React.useState([1, 1, 1]);
+
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
     <div className="RotorAssembly columns-3">
       <Reflector
-        id={props.reflector.id}
-        encoding={props.reflector.encoding}
+        id={reflector.id}
+        encoding={reflector.encoding}
       />
       <div
         className={
           classNames(
             'Rotors',
-            'columns-'+props.rotors.length,
+            `columns-${rotors.length}`,
           )
         }
       >
-        {props.rotors.map(r =>
+        {rotors.map((rotor) => (
           <Rotor
-            key={r.rotor.id}
-            id={r.rotor.id}
-            encoding={r.rotor.encoding}
-            ringSetting={r.ringSetting}
-            turnoverNotch={r.rotor.turnoverNotch}
+            key={rotor.id}
+            id={rotor.id}
+            encoding={rotor.encoding}
+            turnoverNotch={rotor.turnoverNotch}
           />
-        )}
+        ))}
       </div>
-      <EntryWheel/>
+      <EntryWheel />
     </div>
   );
 }
+
+RotorAssembly.propTypes = {
+  rotors: PropTypes.arrayOf(PropTypes.number).isRequired,
+  reflector: PropTypes.string.isRequired,
+};
 
 export default RotorAssembly;

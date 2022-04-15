@@ -1,35 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './Plugboard.css';
 
-function Plugboard(props) {
-  const [initialPlugConnection, setInitialPlugConnection] = React.useState(null)
+function Plugboard({ mappings, updateMappingsFunc }) {
+  const [initialPlugConnection, setInitialPlugConnection] = React.useState(null);
 
   const handlePlugClick = (plug, connectedTo) => {
-    let plugMapping = [initialPlugConnection, plug]
-    let plugConnection = null
+    let plugMapping = [initialPlugConnection, plug];
+    let plugConnection = null;
 
     if (initialPlugConnection === null && plug !== connectedTo) {
-      plugMapping = [plug, plug]
+      plugMapping = [plug, plug];
     } else if (initialPlugConnection === null) {
-      plugConnection = plug
-      plugMapping = [plug, null]
+      plugConnection = plug;
+      plugMapping = [plug, null];
     } else if (initialPlugConnection === plug) {
-      plugMapping = [plug, plug]
+      plugMapping = [plug, plug];
     }
 
-    setInitialPlugConnection(plugConnection)
-    props.updateMappingsFunc(...plugMapping)
-  }
+    setInitialPlugConnection(plugConnection);
+    updateMappingsFunc(...plugMapping);
+  };
 
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
     <div className="Plugboard">
       Plug Board
-      {[...props.mappings.keys()].map(k => (
+      {[...mappings.keys()].map((k) => (
         <Plug
           key={k}
           letter={k}
-          connectedTo={props.mappings.get(k)}
+          connectedTo={mappings.get(k)}
           plugHandler={handlePlugClick}
         />
       ))}
@@ -37,28 +39,38 @@ function Plugboard(props) {
   );
 }
 
-function Plug(props) {
-  const letter = props.letter;
-  const connectedTo = props.connectedTo;
+Plugboard.propTypes = {
+  mappings: PropTypes.instanceOf(Map).isRequired,
+  updateMappingsFunc: PropTypes.func.isRequired,
+};
+
+function Plug({ letter, connectedTo, plugHandler }) {
   const connected = connectedTo !== null && letter !== connectedTo;
   const connecting = connectedTo === null;
 
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
     <div
       className={
         classNames(
-          "Plug",
+          'Plug',
           {
-            connected: connected,
-            connecting: connecting,
+            connected,
+            connecting,
           },
         )
       }
-      onClick={() => props.plugHandler(letter, connectedTo)}
+      onClick={() => plugHandler(letter, connectedTo)}
     >
       {letter} (connects {letter} to {connectedTo === null ? '?' : connectedTo})
     </div>
-  )
+  );
 }
+
+Plug.propTypes = {
+  letter: PropTypes.string.isRequired,
+  connectedTo: PropTypes.string.isRequired,
+  plugHandler: PropTypes.func.isRequired,
+};
 
 export default Plugboard;
