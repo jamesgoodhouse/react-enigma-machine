@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-named-default
-import { default as SimpleKeyboard } from 'react-simple-keyboard';
+import SimpleKeyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import './Keyboard.css';
 
@@ -21,7 +20,6 @@ function Keyboard({ onKeyUp, onKeyDown }) {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div className="Keyboard">
       Keyboard
       <SimpleKeyboard

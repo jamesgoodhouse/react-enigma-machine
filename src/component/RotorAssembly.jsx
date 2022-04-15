@@ -9,7 +9,6 @@ function RotorAssembly({ rotors, reflector }) {
   const [ringSettings, setRingSettings] = React.useState([1, 1, 1]);
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div className="RotorAssembly columns-3">
       <Reflector
         id={reflector.id}

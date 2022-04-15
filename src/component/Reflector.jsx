@@ -1,4 +1,6 @@
-function Reflector({id}) {
+import React from 'react';
+
+function Reflector({ id }) {
   return (
     <div className="Reflector">
       Reflector {id}

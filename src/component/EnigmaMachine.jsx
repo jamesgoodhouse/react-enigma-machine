@@ -64,7 +64,6 @@ function EnigmaMachine() {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div className="EnigmaMachine container mx-auto">
       <RotorAssembly
         rotors={[

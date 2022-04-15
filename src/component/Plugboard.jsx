@@ -24,7 +24,6 @@ function Plugboard({ mappings, updateMappingsFunc }) {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div className="Plugboard">
       Plug Board
       {[...mappings.keys()].map((k) => (
@@ -49,7 +48,6 @@ function Plug({ letter, connectedTo, plugHandler }) {
   const connecting = connectedTo === null;
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div
       className={
         classNames(
