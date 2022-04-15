@@ -24,7 +24,7 @@ export default function EnigmaMachine() {
     Rotors.EnigmaI.III,
   ];
 
-  // GROSS — i don't like how this works, nor that it's here. i want it in the rotor assembly component
+  // FIXME: don't like how this works, nor that it's here. i want it in the rotor assembly component
   const advanceRotors = () => {
     const rs = ringSettings.slice();
     if (rs[0] < 25) {
