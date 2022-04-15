@@ -7,7 +7,7 @@ import { Reflectors, Rotors } from './Rotor';
 import { alphabet } from '../util/alphabet';
 import './EnigmaMachine.css';
 
-function EnigmaMachine() {
+export default function EnigmaMachine() {
   // setup initial mappings where a letter goes to itself
   const [plugboardMappings, setPlugboardMappings] = React.useState(new Map(
     alphabet.map((alpha) => [alpha, alpha]),
@@ -87,5 +87,3 @@ function EnigmaMachine() {
     </div>
   );
 }
-
-export default EnigmaMachine;

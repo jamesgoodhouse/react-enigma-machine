@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function Reflector({ id }) {
+export default function Reflector({ id }) {
   return (
     <div className="Reflector">
       Reflector {id}
@@ -8,4 +9,6 @@ function Reflector({ id }) {
   );
 }
 
-export default Reflector;
+Reflector.propTypes = {
+  id: PropTypes.string.isRequired,
+};

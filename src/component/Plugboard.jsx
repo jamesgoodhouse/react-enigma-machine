@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './Plugboard.css';
 
-function Plugboard({ mappings, updateMappingsFunc }) {
+export default function Plugboard({ mappings, updateMappingsFunc }) {
   const [initialPlugConnection, setInitialPlugConnection] = React.useState(null);
 
   const handlePlugClick = (plug, connectedTo) => {
@@ -70,5 +70,3 @@ Plug.propTypes = {
   connectedTo: PropTypes.string.isRequired,
   plugHandler: PropTypes.func.isRequired,
 };
-
-export default Plugboard;

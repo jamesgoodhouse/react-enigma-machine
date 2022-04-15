@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import './LightPanel.css';
 
-function LightPanel({ lights }) {
+export default function LightPanel({ lights }) {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <div className="LightPanel">
@@ -44,5 +44,3 @@ Light.propTypes = {
   letter: PropTypes.string.isRequired,
   illuminated: PropTypes.string.isRequired,
 };
-
-export default LightPanel;

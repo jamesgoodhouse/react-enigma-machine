@@ -5,7 +5,7 @@ import EntryWheel from './EntryWheel';
 import Reflector from './Reflector';
 import Rotor from './Rotor';
 
-function RotorAssembly({ rotors, reflector }) {
+export default function RotorAssembly({ rotors, reflector }) {
   const [ringSettings, setRingSettings] = React.useState([1, 1, 1]);
 
   return (
@@ -40,5 +40,3 @@ RotorAssembly.propTypes = {
   rotors: PropTypes.arrayOf(PropTypes.number).isRequired,
   reflector: PropTypes.string.isRequired,
 };
-
-export default RotorAssembly;

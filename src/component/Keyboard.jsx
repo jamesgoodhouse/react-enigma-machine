@@ -4,7 +4,7 @@ import SimpleKeyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import './Keyboard.css';
 
-function Keyboard({ onKeyUp, onKeyDown }) {
+export default function Keyboard({ onKeyUp, onKeyDown }) {
   const layout = [
     'q w e r t y u i o p',
     'a s d f g h j k l',
@@ -37,5 +37,3 @@ Keyboard.propTypes = {
   onKeyUp: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func.isRequired,
 };
-
-export default Keyboard;
