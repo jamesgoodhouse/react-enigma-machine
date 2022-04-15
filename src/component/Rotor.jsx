@@ -41,7 +41,7 @@ export default function Rotor({ id, ringSetting }) {
     <div className="Rotor">
       Rotor
       {id}
-      <input type="number" min="1" max="26" value={ringSetting + 1} />
+      <input type="number" min="1" max="26" value={ringSetting + 1} onChange={() => console.log('updating ring setting')} />
     </div>
   );
 }

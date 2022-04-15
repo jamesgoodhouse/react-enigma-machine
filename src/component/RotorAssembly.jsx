@@ -8,10 +8,7 @@ import Rotor from './Rotor';
 export default function RotorAssembly({ rotors, reflector }) {
   return (
     <div className="RotorAssembly columns-3">
-      <Reflector
-        id={reflector.id}
-        encoding={reflector.encoding}
-      />
+      <EntryWheel />
       <div
         className={
           classNames(
@@ -26,11 +23,13 @@ export default function RotorAssembly({ rotors, reflector }) {
             id={r.rotor.id}
             encoding={r.rotor.encoding}
             ringSetting={r.ringSetting}
-            turnoverNotch={r.rotor.turnoverNotch}
           />
         ))}
       </div>
-      <EntryWheel />
+      <Reflector
+        id={reflector.id}
+        encoding={reflector.encoding}
+      />
     </div>
   );
 }
@@ -46,7 +45,6 @@ RotorAssembly.propTypes = {
       rotor: PropTypes.shape({
         id: PropTypes.string.isRequired,
         encoding: PropTypes.string.isRequired,
-        turnoverNotch: PropTypes.string.isRequired,
       }),
     }),
   ).isRequired,

@@ -24,14 +24,26 @@ export default function EnigmaMachine() {
     Rotors.EnigmaI.III,
   ];
 
-  // GROSS
+  // GROSS — i don't like how this works, nor that it's here. i want it in the rotor assembly component
   const advanceRotors = () => {
     const rs = ringSettings.slice();
-    if (rs[0] < 25) { rs[0] += 1; } else { rs[0] = 0; }
+    if (rs[0] < 25) {
+      rs[0] += 1;
+    } else {
+      rs[0] = 0;
+    }
     if (ringSettings[0] === rotors[0].encoding.indexOf(rotors[0].turnoverNotch)) {
-      if (rs[1] < 25) { rs[1] += 1; } else { rs[1] = 0; }
+      if (rs[1] < 25) {
+        rs[1] += 1;
+      } else {
+        rs[1] = 0;
+      }
       if (ringSettings[1] === rotors[1].encoding.indexOf(rotors[1].turnoverNotch)) {
-        if (rs[2] < 25) { rs[2] += 1; } else { rs[2] = 0; }
+        if (rs[2] < 25) {
+          rs[2] += 1;
+        } else {
+          rs[2] = 0;
+        }
       }
     }
     setRingSettings(rs);
