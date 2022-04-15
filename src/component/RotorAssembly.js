@@ -18,12 +18,13 @@ function RotorAssembly(props) {
           )
         }
       >
-        {props.rotors.map(rotor =>
+        {props.rotors.map(r =>
           <Rotor
-            key={rotor.id}
-            id={rotor.id}
-            encoding={rotor.encoding}
-            turnoverNotch={rotor.turnoverNotch}
+            key={r.rotor.id}
+            id={r.rotor.id}
+            encoding={r.rotor.encoding}
+            ringSetting={r.ringSetting}
+            turnoverNotch={r.rotor.turnoverNotch}
           />
         )}
       </div>

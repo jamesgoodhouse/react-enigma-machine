@@ -67,9 +67,9 @@ function EnigmaMachine() {
     <div className="EnigmaMachine container mx-auto">
       <RotorAssembly
         rotors={[
-          Rotors.EnigmaI.I,
-          Rotors.EnigmaI.II,
-          Rotors.EnigmaI.III,
+          {rotor: Rotors.EnigmaI.I, ringSetting: 1},
+          {rotor: Rotors.EnigmaI.II, ringSetting: 1},
+          {rotor: Rotors.EnigmaI.III, ringSetting: 1},
         ]}
         reflector={Reflectors.A}
       />

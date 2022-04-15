@@ -36,7 +36,7 @@ export const Reflectors = {
 function Rotor(props) {
   return (
     <div className="Rotor">
-      Rotor {props.id}
+      Rotor {props.id} <input type="number" min="1" max="26" defaultValue={props.ringSetting} />
     </div>
   );
 }
