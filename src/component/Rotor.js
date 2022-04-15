@@ -33,12 +33,10 @@ export const Reflectors = {
   },
 }
 
-function Rotor(props) {
+export default function Rotor(props) {
   return (
     <div className="Rotor">
-      Rotor {props.id} <input type="number" min="1" max="26" defaultValue={props.ringSetting} />
+      Rotor {props.id} <input type="number" min="1" max="26" defaultValue="1" />
     </div>
   );
 }
-
-export default Rotor;
