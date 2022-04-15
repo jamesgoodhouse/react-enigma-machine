@@ -1,12 +1,23 @@
 import EntryWheel from './EntryWheel';
 import Reflector from './Reflector';
 import Rotor from './Rotor';
+import classNames from 'classnames';
 
 function RotorAssembly(props) {
   return (
-    <div className="RotorAssembly">
-      <EntryWheel/>
-      <div className="Rotors">
+    <div className="RotorAssembly columns-3">
+      <Reflector
+        id={props.reflector.id}
+        encoding={props.reflector.encoding}
+      />
+      <div
+        className={
+          classNames(
+            'Rotors',
+            'columns-'+props.rotors.length,
+          )
+        }
+      >
         {props.rotors.map(rotor =>
           <Rotor
             key={rotor.id}
@@ -16,10 +27,7 @@ function RotorAssembly(props) {
           />
         )}
       </div>
-      <Reflector
-        id={props.reflector.id}
-        encoding={props.reflector.encoding}
-      />
+      <EntryWheel/>
     </div>
   );
 }

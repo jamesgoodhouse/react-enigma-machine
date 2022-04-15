@@ -64,7 +64,7 @@ function EnigmaMachine() {
   }
 
   return (
-    <div className="EnigmaMachine">
+    <div className="EnigmaMachine container mx-auto">
       <RotorAssembly
         rotors={[
           Rotors.EnigmaI.I,
