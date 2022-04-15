@@ -16,8 +16,29 @@ export default function EnigmaMachine() {
   // setup initial light map with false representing illumination
   const [lights, setLights] = React.useState(new Map(alphabet.map((alpha) => [alpha, false])));
 
+  const [ringSettings, setRingSettings] = React.useState([0, 0, 0]);
+
+  const rotors = [
+    Rotors.EnigmaI.I,
+    Rotors.EnigmaI.II,
+    Rotors.EnigmaI.III,
+  ];
+
+  // GROSS
+  const advanceRotors = () => {
+    const rs = ringSettings.slice();
+    if (rs[0] < 25) { rs[0] += 1; } else { rs[0] = 0; }
+    if (ringSettings[0] === rotors[0].encoding.indexOf(rotors[0].turnoverNotch)) {
+      if (rs[1] < 25) { rs[1] += 1; } else { rs[1] = 0; }
+      if (ringSettings[1] === rotors[1].encoding.indexOf(rotors[1].turnoverNotch)) {
+        if (rs[2] < 25) { rs[2] += 1; } else { rs[2] = 0; }
+      }
+    }
+    setRingSettings(rs);
+  };
+
   const handleKeyPressed = (key) => {
-    // rotate rotor(s)
+    advanceRotors();
 
     const plugVal = plugboardMappings.get(key);
 
@@ -67,9 +88,9 @@ export default function EnigmaMachine() {
     <div className="EnigmaMachine container mx-auto">
       <RotorAssembly
         rotors={[
-          Rotors.EnigmaI.I,
-          Rotors.EnigmaI.II,
-          Rotors.EnigmaI.III,
+          { rotor: rotors[0], ringSetting: ringSettings[0] },
+          { rotor: rotors[1], ringSetting: ringSettings[1] },
+          { rotor: rotors[2], ringSetting: ringSettings[2] },
         ]}
         reflector={Reflectors.A}
       />
@@ -77,8 +98,8 @@ export default function EnigmaMachine() {
         lights={lights}
       />
       <Keyboard
-        onKeyDown={handleKeyPressed}
-        onKeyUp={handleKeyReleased}
+        keyPressedHandler={handleKeyPressed}
+        keyReleasedHandler={handleKeyReleased}
       />
       <Plugboard
         mappings={plugboardMappings}

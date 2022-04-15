@@ -42,5 +42,5 @@ function Light({ letter, illuminated }) {
 
 Light.propTypes = {
   letter: PropTypes.string.isRequired,
-  illuminated: PropTypes.string.isRequired,
+  illuminated: PropTypes.bool.isRequired,
 };

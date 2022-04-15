@@ -36,14 +36,17 @@ export const Reflectors = {
   },
 };
 
-export default function Rotor({ id }) {
+export default function Rotor({ id, ringSetting }) {
   return (
     <div className="Rotor">
-      Rotor {id} <input type="number" min="1" max="26" defaultValue="1" />
+      Rotor
+      {id}
+      <input type="number" min="1" max="26" value={ringSetting + 1} />
     </div>
   );
 }
 
 Rotor.propTypes = {
   id: PropTypes.string.isRequired,
+  ringSetting: PropTypes.number.isRequired,
 };
