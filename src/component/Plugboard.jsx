@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import Plug from './Plug';
 import './Plugboard.css';
 
 export default function Plugboard({ mappings, updateMappingsFunc }) {
@@ -41,32 +41,4 @@ export default function Plugboard({ mappings, updateMappingsFunc }) {
 Plugboard.propTypes = {
   mappings: PropTypes.instanceOf(Map).isRequired,
   updateMappingsFunc: PropTypes.func.isRequired,
-};
-
-function Plug({ letter, connectedTo, plugHandler }) {
-  const connected = connectedTo !== null && letter !== connectedTo;
-  const connecting = connectedTo === null;
-
-  return (
-    <div
-      className={
-        classNames(
-          'Plug',
-          {
-            connected,
-            connecting,
-          },
-        )
-      }
-      onClick={() => plugHandler(letter, connectedTo)}
-    >
-      {letter} (connects {letter} to {connectedTo === null ? '?' : connectedTo})
-    </div>
-  );
-}
-
-Plug.propTypes = {
-  letter: PropTypes.string.isRequired,
-  connectedTo: PropTypes.string.isRequired,
-  plugHandler: PropTypes.func.isRequired,
 };
