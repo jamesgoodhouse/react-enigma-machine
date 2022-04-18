@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { alphabet } from '../util/alphabet';
 
 export const Rotors = {
   EnigmaI: {
@@ -36,9 +37,27 @@ export const Reflectors = {
   },
 };
 
-export default function Rotor({ id, ringSetting }) {
+export default function Rotor({
+  id,
+  encoding,
+  input,
+  outputHandler,
+  ringSetting,
+}) {
+  React.useEffect(() => {
+    if (input !== null) {
+      let enc = encoding.split('');
+      enc = enc.concat(enc.splice(0, ringSetting));
+
+      outputHandler(id, enc[alphabet.indexOf(input)]);
+    }
+  }, [input]);
+
   return (
     <div className="Rotor">
+      <div>
+        {input}
+      </div>
       Rotor
       {id}
       <input type="number" min="1" max="26" value={ringSetting + 1} onChange={() => console.log('updating ring setting')} />
@@ -48,5 +67,10 @@ export default function Rotor({ id, ringSetting }) {
 
 Rotor.propTypes = {
   id: PropTypes.string.isRequired,
+  encoding: PropTypes.string.isRequired,
+  input: PropTypes.string,
+  outputHandler: PropTypes.func.isRequired,
   ringSetting: PropTypes.number.isRequired,
 };
+
+Rotor.defaultProps = { input: null };
