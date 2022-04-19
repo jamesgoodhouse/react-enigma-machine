@@ -31,28 +31,40 @@ export default function Rotor({
   reverseOutputHandler,
   ringPosition,
 }) {
+  const encode = (input, reverse) => {
+    const index = alphabet.indexOf(input);
+    let indexWithRingPosition = index + ringPosition;
+
+    if (indexWithRingPosition > 25) {
+      indexWithRingPosition -= 26;
+    }
+
+    let encodingChar = encoding.charAt(indexWithRingPosition);
+    let indexOfEncodedChar = alphabet.indexOf(encodingChar);
+
+    if (reverse) {
+      encodingChar = alphabet[indexWithRingPosition];
+      indexOfEncodedChar = encoding.indexOf(encodingChar);
+    }
+
+    let indexOfEncodedCharWithRingPosition = indexOfEncodedChar - ringPosition;
+
+    if (indexOfEncodedCharWithRingPosition < 0) {
+      indexOfEncodedCharWithRingPosition += 26;
+    }
+
+    return alphabet[indexOfEncodedCharWithRingPosition];
+  };
+
+  const encodeForward = (input) => encode(input, false);
+  const encodeReverse = (input) => encode(input, true);
+
   React.useEffect(() => {
     let output = null;
 
     if (forwardInput !== null) {
       console.log('input to rotor %s:', id + 1, forwardInput);
-      const index = alphabet.indexOf(forwardInput);
-      let indexWithRingPosition = index + ringPosition;
-
-      if (indexWithRingPosition > 25) {
-        indexWithRingPosition -= 26;
-      }
-
-      const encodingChar = encoding.charAt(indexWithRingPosition);
-      const indexOfEncodingChar = alphabet.indexOf(encodingChar);
-
-      let indexOfEncodingCharWithRingPosition = indexOfEncodingChar - ringPosition;
-
-      if (indexOfEncodingCharWithRingPosition < 0) {
-        indexOfEncodingCharWithRingPosition += 26;
-      }
-
-      output = alphabet[indexOfEncodingCharWithRingPosition];
+      output = encodeForward(forwardInput);
     }
 
     forwardOutputHandler(id, output);
@@ -63,23 +75,7 @@ export default function Rotor({
 
     if (reverseInput !== null) {
       console.log('input to rotor %s:', id + 1, reverseInput);
-      const index = alphabet.indexOf(reverseInput);
-      let indexWithRingPosition = index + ringPosition;
-
-      if (indexWithRingPosition > 25) {
-        indexWithRingPosition -= 26;
-      }
-
-      const letterAtIndex = alphabet[indexWithRingPosition];
-      const indexOfEncodedChar = encoding.indexOf(letterAtIndex);
-
-      let indexOfEncodedCharWithRingPosition = indexOfEncodedChar - ringPosition;
-
-      if (indexOfEncodedCharWithRingPosition < 0) {
-        indexOfEncodedCharWithRingPosition += 26;
-      }
-
-      output = alphabet[indexOfEncodedCharWithRingPosition];
+      output = encodeReverse(reverseInput);
     }
 
     reverseOutputHandler(id, output);

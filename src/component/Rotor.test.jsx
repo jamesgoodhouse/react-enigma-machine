@@ -40,7 +40,7 @@ describe('rotor — forward input', () => {
       input: null,
       expectedOutput: null,
     },
-  ]
+  ];
 
   tests.forEach((test) => {
     it(test.name, () => {
@@ -74,10 +74,10 @@ describe('rotor — reverse input', () => {
       expectedOutput: 'T',
     },
     {
-      name: 'should return F',
+      name: 'should return Z',
       ringPosition: 1,
-      input: 'B',
-      expectedOutput: 'F',
+      input: 'A',
+      expectedOutput: 'Z',
     },
     {
       name: 'should return Z',
@@ -109,7 +109,7 @@ describe('rotor — reverse input', () => {
       input: null,
       expectedOutput: null,
     },
-  ]
+  ];
 
   tests.forEach((test) => {
     it(test.name, () => {
