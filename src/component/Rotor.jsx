@@ -40,14 +40,14 @@ export const Reflectors = {
 export default function Rotor({
   id,
   encoding,
-  input,
+  forwardInput,
   outputHandler,
   ringPosition,
 }) {
   React.useEffect(() => {
-    if (input !== null) {
+    if (forwardInput !== null) {
       console.log('doing shit for rotor index', id);
-      const index = alphabet.indexOf(input);
+      const index = alphabet.indexOf(forwardInput);
       let indexWithRingPosition = index + ringPosition;
 
       if (indexWithRingPosition > 25) {
@@ -67,15 +67,11 @@ export default function Rotor({
 
       outputHandler(id, output);
     }
-  }, [input]);
+  }, [forwardInput]);
 
   return (
     <div className="Rotor">
-      <div>
-        {input}
-      </div>
       Rotor
-      {id}
       <input type="number" min="1" max="26" value={ringPosition + 1} onChange={() => console.log('updating ring setting')} />
     </div>
   );
@@ -83,10 +79,10 @@ export default function Rotor({
 
 Rotor.propTypes = {
   encoding: PropTypes.string.isRequired,
+  forwardInput: PropTypes.string,
   id: PropTypes.number.isRequired,
-  input: PropTypes.string,
   outputHandler: PropTypes.func.isRequired,
   ringPosition: PropTypes.number.isRequired,
 };
 
-Rotor.defaultProps = { input: null };
+Rotor.defaultProps = { forwardInput: null };
