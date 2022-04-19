@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { alphabet } from '../util/alphabet';
 
 export default function Reflector({
   encoding,
@@ -9,8 +10,9 @@ export default function Reflector({
 }) {
   React.useEffect(() => {
     if (input !== null) {
-      console.log(encoding);
-      outputHandler('F');
+      console.log('input to reflector:', input);
+      const index = alphabet.indexOf(input);
+      outputHandler(encoding.charAt(index));
     }
   }, [input]);
 

@@ -14,15 +14,24 @@ export default function RotorAssembly({
     rotorRingPositions,
     setRotorRingPositions,
   ] = React.useState(new Array(rotors.length).fill(0));
+
   const [
     rotorForwardInputs,
     setRotorForwardInputs,
   ] = React.useState([null, null, null]);
 
+  const [
+    rotorReverseInputs,
+    setRotorReverseInputs,
+  ] = React.useState([null, null, null]);
+
+  const [reflectorInput, setReflectorInput] = React.useState(null);
+
   const incrementRotor = (rp) => {
-    let rotorPos = rp;
-    if (rotorPos < 25) { rotorPos += 1; } else { rotorPos = 0; }
-    return rotorPos;
+    if (rp < 25) {
+      return rp + 1;
+    }
+    return 0;
   };
 
   const incrementRotors = () => {
@@ -42,9 +51,10 @@ export default function RotorAssembly({
     setRotorRingPositions(rs);
   };
 
-  const handleRotorOutput = (id, output) => {
+  const handleRotorForwardOutput = (id, output) => {
     const nextRotor = id + 1;
     if (nextRotor >= rotors.length) {
+      setReflectorInput(output);
       return;
     }
 
@@ -55,8 +65,22 @@ export default function RotorAssembly({
     setRotorForwardInputs(inputs);
   };
 
+  const handleRotorReverseOutput = (id, output) => {
+    const nextRotor = id + 1;
+    if (nextRotor >= rotors.length) {
+      return;
+    }
+
+    console.log('SETTING rotor %s (i=%s) input to', nextRotor + 1, nextRotor, output);
+    const inputs = rotorForwardInputs.slice();
+    inputs[nextRotor] = output;
+
+    setRotorReverseInputs(inputs);
+  };
+
   const handleReflectorOutput = (output) => {
-    console.log(output);
+    console.log('reflector output:', output);
+    setRotorReverseInputs([null, null, output]);
   };
 
   React.useEffect(() => {
@@ -66,7 +90,7 @@ export default function RotorAssembly({
       incrementRotors();
 
       // must come after setting the rings
-      console.log('setting rotor %s (i=0) input to', 1, input);
+      console.log('sEtting rotor %s (i=0) input to', 1, input);
       setRotorForwardInputs([input, null, null]);
     } else {
       setRotorForwardInputs([null, null, null]);
@@ -89,12 +113,14 @@ export default function RotorAssembly({
           <Rotor
             encoding={rotor.encoding}
             forwardInput={rotorForwardInputs[i]}
+            forwardOutputHandler={handleRotorForwardOutput}
             id={i}
             // i know this is not ideal to use the index for a key, but the rotor list won't be
             // changing at this point, and this will help out determining rotor order
             // eslint-disable-next-line react/no-array-index-key
             key={i}
-            outputHandler={handleRotorOutput}
+            reverseInput={rotorReverseInputs[i]}
+            reverseOutputHandler={handleRotorReverseOutput}
             ringPosition={rotorRingPositions[i]}
           />
         ))}
@@ -102,7 +128,7 @@ export default function RotorAssembly({
       <Reflector
         encoding={reflector.encoding}
         id={reflector.id}
-        input={rotorForwardInputs[rotorForwardInputs.length - 1]}
+        input={reflectorInput}
         outputHandler={handleReflectorOutput}
       />
     </div>

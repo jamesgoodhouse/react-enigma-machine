@@ -20,7 +20,7 @@ export default function EnigmaMachine() {
       <RotorAssembly
         input={plugboardRotorAssemblyOutput}
         outputHandler={setRotorAssemblyOutput}
-        reflector={Reflectors.A}
+        reflector={Reflectors.B}
         rotors={[
           Rotors.EnigmaI.I,
           Rotors.EnigmaI.II,
