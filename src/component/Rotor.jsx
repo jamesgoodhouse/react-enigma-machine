@@ -32,7 +32,7 @@ export default function Rotor({
   ringPosition,
 }) {
   React.useEffect(() => {
-    let output = null
+    let output = null;
 
     if (forwardInput !== null) {
       console.log('input to rotor %s:', id + 1, forwardInput);
@@ -59,10 +59,30 @@ export default function Rotor({
   }, [forwardInput]);
 
   React.useEffect(() => {
+    let output = null;
+
     if (reverseInput !== null) {
       console.log('input to rotor %s:', id + 1, reverseInput);
-      reverseOutputHandler(null);
+      const index = alphabet.indexOf(reverseInput);
+      let indexWithRingPosition = index + ringPosition;
+
+      if (indexWithRingPosition > 25) {
+        indexWithRingPosition -= 26;
+      }
+
+      const letterAtIndex = alphabet[indexWithRingPosition];
+      const indexOfEncodedChar = encoding.indexOf(letterAtIndex);
+
+      let indexOfEncodedCharWithRingPosition = indexOfEncodedChar - ringPosition;
+
+      if (indexOfEncodedCharWithRingPosition < 0) {
+        indexOfEncodedCharWithRingPosition += 26;
+      }
+
+      output = alphabet[indexOfEncodedCharWithRingPosition];
     }
+
+    reverseOutputHandler(id, output);
   }, [reverseInput]);
 
   return (

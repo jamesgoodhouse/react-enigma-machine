@@ -11,12 +11,6 @@ describe('rotor — forward input', () => {
       expectedOutput: 'E',
     },
     {
-      name: 'should return D',
-      ringPosition: 0,
-      input: 'G',
-      expectedOutput: 'D',
-    },
-    {
       name: 'should return J',
       ringPosition: 1,
       input: 'A',
@@ -74,44 +68,44 @@ describe('rotor — forward input', () => {
 describe('rotor — reverse input', () => {
   const tests = [
     {
-      name: 'should return E',
+      name: 'should return T',
       ringPosition: 0,
       input: 'A',
-      expectedOutput: 'E',
+      expectedOutput: 'T',
     },
     {
-      name: 'should return D',
-      ringPosition: 0,
-      input: 'G',
-      expectedOutput: 'D',
-    },
-    {
-      name: 'should return J',
+      name: 'should return F',
       ringPosition: 1,
-      input: 'A',
-      expectedOutput: 'J',
+      input: 'B',
+      expectedOutput: 'F',
     },
     {
-      name: 'should return N',
-      ringPosition: 8,
-      input: 'A',
-      expectedOutput: 'N',
+      name: 'should return Z',
+      ringPosition: 5,
+      input: 'E',
+      expectedOutput: 'Z',
     },
     {
-      name: 'should return W',
+      name: 'should return R',
       ringPosition: 25,
       input: 'J',
-      expectedOutput: 'W',
+      expectedOutput: 'R',
     },
     {
-      name: 'should return D',
+      name: 'should return P',
       ringPosition: 25,
       input: 'Z',
-      expectedOutput: 'D',
+      expectedOutput: 'P',
+    },
+    {
+      name: 'should return G',
+      ringPosition: 13,
+      input: 'N',
+      expectedOutput: 'G',
     },
     {
       name: 'should return null',
-      ringPosition: 25,
+      ringPosition: 13,
       input: null,
       expectedOutput: null,
     },
@@ -126,7 +120,7 @@ describe('rotor — reverse input', () => {
 
       render(
         <Rotor
-          encoding={Rotors.EnigmaI.I.encoding}
+          encoding={Rotors.EnigmaI.III.encoding}
           forwardOutputHandler={forwardOutputHandler}
           id={1}
           reverseInput={test.input}
