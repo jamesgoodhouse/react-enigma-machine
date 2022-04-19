@@ -48,7 +48,7 @@ describe('rotor — forward output', () => {
     },
   ]
 
-  tests.forEach(test => {
+  tests.forEach((test) => {
     it(test.name, () => {
       let output = null;
 
@@ -63,7 +63,7 @@ describe('rotor — forward output', () => {
           id={1}
           reverseOutputHandler={reverseOutputHandler}
           ringPosition={test.ringPosition}
-        />
+        />,
       );
 
       expect(output).toBe(test.expectedOutput);

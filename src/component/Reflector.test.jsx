@@ -25,9 +25,9 @@ describe('reflector — output', () => {
       input: null,
       expectedOutput: null,
     },
-  ]
+  ];
 
-  tests.forEach(test => {
+  tests.forEach((test) => {
     it(test.name, () => {
       let output = null;
 
@@ -36,10 +36,10 @@ describe('reflector — output', () => {
       render(
         <Reflector
           encoding={Reflectors.B.encoding}
-          id='reflector'
+          id="reflector"
           input={test.input}
           outputHandler={outputHandler}
-        />
+        />,
       );
 
       expect(output).toBe(test.expectedOutput);
