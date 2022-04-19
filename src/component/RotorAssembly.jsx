@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Reflector from './Reflector';
 import Rotor from './Rotor';
+import { alphabet } from '../util/alphabet';
 
 export default function RotorAssembly({
   input,
@@ -34,10 +35,10 @@ export default function RotorAssembly({
     console.log('incrementing rotor 1');
 
     rs[0] = incrementRotor(rs[0]);
-    if (rotorRingPositions[0] === rotors[0].encoding.indexOf(rotors[0].turnoverNotch)) {
+    if (rotorRingPositions[0] === alphabet.indexOf(rotors[0].turnoverNotch)) {
       console.log('incrementing rotor 2');
       rs[1] = incrementRotor(rs[1]);
-      if (rotorRingPositions[1] === rotors[1].encoding.indexOf(rotors[1].turnoverNotch)) {
+      if (rotorRingPositions[1] === alphabet.indexOf(rotors[1].turnoverNotch)) {
         console.log('incrementing rotor 3');
         rs[2] = incrementRotor(rs[2]);
       }
