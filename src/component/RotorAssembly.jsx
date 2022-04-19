@@ -27,12 +27,7 @@ export default function RotorAssembly({
 
   const [reflectorInput, setReflectorInput] = React.useState(null);
 
-  const incrementRotor = (rp) => {
-    if (rp < 25) {
-      return rp + 1;
-    }
-    return 0;
-  };
+  const incrementRotor = (rp) => (rp < 25 ? rp + 1 : 0);
 
   const incrementRotors = () => {
     const rs = rotorRingPositions.slice();
