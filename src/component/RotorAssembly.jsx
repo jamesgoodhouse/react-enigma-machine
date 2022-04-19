@@ -75,17 +75,19 @@ export default function RotorAssembly({
   };
 
   React.useEffect(() => {
+    let inputs = [null, null, null];
+
     console.log('rotor assembly input:', input);
 
     if (input !== null) {
       incrementRotors();
 
       // must come after setting the rings
-      console.log('sEtting rotor %s (i=0) input to', 1, input);
-      setRotorForwardInputs([input, null, null]);
-    } else {
-      setRotorForwardInputs([null, null, null]);
+      console.log('setting rotor %s (i=0) input to', 1, input);
+      inputs = [input, null, null];
     }
+
+    setRotorForwardInputs(inputs);
   }, [input]);
 
   return (

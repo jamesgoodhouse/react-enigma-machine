@@ -73,7 +73,7 @@ export default function Rotor({
     let output = null;
 
     if (reverseInput !== null) {
-      console.log('input to rotor %s:', id + 1, reverseInput);
+      console.log('reverse input to rotor %s:', id + 1, reverseInput);
       output = encodeReverse(reverseInput);
     }
 
