@@ -25,10 +25,9 @@ export const Rotors = {
 export default function Rotor({
   encoding,
   forwardInput,
-  forwardOutputHandler,
   id,
   reverseInput,
-  reverseOutputHandler,
+  outputHandler,
   ringPosition,
 }) {
   const encode = (input, reverse) => {
@@ -67,7 +66,7 @@ export default function Rotor({
       output = encodeForward(forwardInput);
     }
 
-    forwardOutputHandler(id, output);
+    outputHandler(id, output, false);
   }, [forwardInput]);
 
   React.useEffect(() => {
@@ -78,7 +77,7 @@ export default function Rotor({
       output = encodeReverse(reverseInput);
     }
 
-    reverseOutputHandler(id, output);
+    outputHandler(id, output, true);
   }, [reverseInput]);
 
   return (
@@ -92,9 +91,8 @@ export default function Rotor({
 Rotor.propTypes = {
   encoding: PropTypes.string.isRequired,
   forwardInput: PropTypes.string,
-  forwardOutputHandler: PropTypes.func.isRequired,
   reverseInput: PropTypes.string,
-  reverseOutputHandler: PropTypes.func.isRequired,
+  outputHandler: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   ringPosition: PropTypes.number.isRequired,
 };

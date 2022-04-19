@@ -7,9 +7,19 @@ import { Reflectors } from './Reflector';
 describe('rotor assembly — input', () => {
   const tests = [
     {
-      name: 'should return E',
+      name: 'should return F',
       input: 'A',
-      expectedOutput: 'E',
+      expectedOutput: 'F',
+    },
+    {
+      name: 'should return Y',
+      input: 'G',
+      expectedOutput: 'Y',
+    },
+    {
+      name: 'should return R',
+      input: 'J',
+      expectedOutput: 'R',
     },
   ]
 

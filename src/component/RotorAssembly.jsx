@@ -46,31 +46,27 @@ export default function RotorAssembly({
     setRotorRingPositions(rs);
   };
 
-  const handleRotorForwardOutput = (id, output) => {
-    const nextRotor = id + 1;
+  const handleRotorOutput = (id, output, isReverse) => {
+    const nextRotor = isReverse ? id - 1 : id + 1;
+
+    if (isReverse && nextRotor < 0) {
+      outputHandler(output);
+      return;
+    }
+
     if (nextRotor >= rotors.length) {
       setReflectorInput(output);
       return;
     }
 
-    console.log('setting rotor %s (i=%s) input to', nextRotor + 1, nextRotor, output);
-    const inputs = rotorForwardInputs.slice();
+    const inputs = isReverse ? rotorReverseInputs.slice() : rotorForwardInputs.slice();
     inputs[nextRotor] = output;
 
-    setRotorForwardInputs(inputs);
-  };
-
-  const handleRotorReverseOutput = (id, output) => {
-    const nextRotor = id + 1;
-    if (nextRotor >= rotors.length) {
-      return;
+    if (isReverse) {
+      setRotorReverseInputs(inputs);
+    } else {
+      setRotorForwardInputs(inputs);
     }
-
-    console.log('SETTING rotor %s (i=%s) input to', nextRotor + 1, nextRotor, output);
-    const inputs = rotorForwardInputs.slice();
-    inputs[nextRotor] = output;
-
-    setRotorReverseInputs(inputs);
   };
 
   const handleReflectorOutput = (output) => {
@@ -90,8 +86,6 @@ export default function RotorAssembly({
     } else {
       setRotorForwardInputs([null, null, null]);
     }
-
-    outputHandler('F');
   }, [input]);
 
   return (
@@ -108,14 +102,13 @@ export default function RotorAssembly({
           <Rotor
             encoding={rotor.encoding}
             forwardInput={rotorForwardInputs[i]}
-            forwardOutputHandler={handleRotorForwardOutput}
             id={i}
             // i know this is not ideal to use the index for a key, but the rotor list won't be
             // changing at this point, and this will help out determining rotor order
             // eslint-disable-next-line react/no-array-index-key
             key={i}
+            outputHandler={handleRotorOutput}
             reverseInput={rotorReverseInputs[i]}
-            reverseOutputHandler={handleRotorReverseOutput}
             ringPosition={rotorRingPositions[i]}
           />
         ))}
