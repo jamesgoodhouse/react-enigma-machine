@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Reflectors } from './Rotor';
-import Reflector from './Reflector';
+import Reflector, { Reflectors } from './Reflector';
 
 describe('reflector — output', () => {
   const tests = [

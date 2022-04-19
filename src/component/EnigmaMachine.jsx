@@ -3,7 +3,8 @@ import RotorAssembly from './RotorAssembly';
 // import LightPanel from './LightPanel';
 import Keyboard from './Keyboard';
 import Plugboard from './Plugboard';
-import { Reflectors, Rotors } from './Rotor';
+import { Rotors } from './Rotor';
+import { Reflectors } from './Reflector';
 import './EnigmaMachine.css';
 
 export default function EnigmaMachine() {

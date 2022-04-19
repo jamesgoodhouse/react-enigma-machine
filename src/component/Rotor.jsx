@@ -22,21 +22,6 @@ export const Rotors = {
   },
 };
 
-export const Reflectors = {
-  A: {
-    id: 'A',
-    encoding: 'ENKQAUYWJICOPBLMDXZVFTHRGS',
-  },
-  B: {
-    id: 'B',
-    encoding: 'YRUHQSLDPXNGOKMIEBFZCWVJAT',
-  },
-  C: {
-    id: 'C',
-    encoding: 'FVPJIAOYEDRZXWGCTKUQSBNMHL',
-  },
-};
-
 export default function Rotor({
   encoding,
   forwardInput,

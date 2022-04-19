@@ -2,6 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { alphabet } from '../util/alphabet';
 
+export const Reflectors = {
+  A: {
+    id: 'A',
+    encoding: 'ENKQAUYWJICOPBLMDXZVFTHRGS',
+  },
+  B: {
+    id: 'B',
+    encoding: 'YRUHQSLDPXNGOKMIEBFZCWVJAT',
+  },
+  C: {
+    id: 'C',
+    encoding: 'FVPJIAOYEDRZXWGCTKUQSBNMHL',
+  },
+};
+
 export default function Reflector({
   encoding,
   id,
