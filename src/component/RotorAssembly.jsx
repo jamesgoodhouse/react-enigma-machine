@@ -10,29 +10,30 @@ export default function RotorAssembly({
   reflector,
   rotors,
 }) {
-  const [ringSettings, setRingSettings] = React.useState(new Array(rotors.length).fill(0));
-  const [ringInputs, setRingInputs] = React.useState(new Map(
-    rotors.map((rotor) => [rotor.id, null]),
-  ));
+  const [ringPositions, setRingPositions] = React.useState(new Array(rotors.length).fill(0));
+  const [rotorInputs, setRotorInputs] = React.useState([null, null, null]);
 
   React.useEffect(() => {
     console.log('rotor assembly input:', input);
 
     if (input !== null) {
-      const rs = ringSettings.slice();
+      const rs = ringPositions.slice();
+      console.log('incrementing rotor 1');
 
       if (rs[0] < 25) {
         rs[0] += 1;
       } else {
         rs[0] = 0;
       }
-      if (ringSettings[0] === rotors[0].encoding.indexOf(rotors[0].turnoverNotch)) {
+      if (ringPositions[0] === rotors[0].encoding.indexOf(rotors[0].turnoverNotch)) {
+        console.log('incrementing rotor 2');
         if (rs[1] < 25) {
           rs[1] += 1;
         } else {
           rs[1] = 0;
         }
-        if (ringSettings[1] === rotors[1].encoding.indexOf(rotors[1].turnoverNotch)) {
+        if (ringPositions[1] === rotors[1].encoding.indexOf(rotors[1].turnoverNotch)) {
+          console.log('incrementing rotor 3');
           if (rs[2] < 25) {
             rs[2] += 1;
           } else {
@@ -41,20 +42,33 @@ export default function RotorAssembly({
         }
       }
 
-      setRingSettings(rs);
+      setRingPositions(rs);
 
       // must come after setting the rings
-      setRingInputs(new Map(ringInputs.set(rotors[0].id, input)));
+      console.log('setting rotor %s (i=0) input to', 1, input);
+      setRotorInputs([input, null, null]);
     } else {
-      setRingInputs(new Map(rotors.map((rotor) => [rotor.id, null])));
+      setRotorInputs([null, null, null]);
     }
 
     outputHandler('F');
   }, [input]);
 
   const handleRotorOutput = (id, output) => {
-    console.log('setting %s output to', id, output);
-    setRingInputs(new Map(ringInputs.set(id, output)));
+    const nextRotor = id + 1;
+    if (nextRotor >= rotors.length) {
+      return;
+    }
+
+    console.log('setting rotor %s (i=%s) input to', nextRotor + 1, nextRotor, output);
+    const inputs = rotorInputs.slice();
+    inputs[nextRotor] = output;
+
+    setRotorInputs(inputs);
+  };
+
+  const handleReflectorOutput = (output) => {
+    console.log(output);
   };
 
   return (
@@ -68,19 +82,24 @@ export default function RotorAssembly({
         }
       >
         {rotors.map((rotor, i) => (
+          // i know this is not ideal to use the index for a key, but the rotor list won't be
+          // changing at this point, and this will help out determining rotor order
           <Rotor
-            key={rotor.id}
+            // eslint-disable-next-line react/no-array-index-key
+            key={i}
             encoding={rotor.encoding}
-            id={rotor.id}
-            input={ringInputs.get(rotor.id)}
+            id={i}
+            input={rotorInputs[i]}
             outputHandler={handleRotorOutput}
-            ringSetting={ringSettings[i]}
+            ringPosition={ringPositions[i]}
           />
         ))}
       </div>
       <Reflector
-        id={reflector.id}
         encoding={reflector.encoding}
+        id={reflector.id}
+        input={rotorInputs[rotorInputs.length - 1]}
+        outputHandler={handleReflectorOutput}
       />
     </div>
   );

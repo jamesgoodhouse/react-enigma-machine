@@ -42,14 +42,30 @@ export default function Rotor({
   encoding,
   input,
   outputHandler,
-  ringSetting,
+  ringPosition,
 }) {
   React.useEffect(() => {
     if (input !== null) {
-      let enc = encoding.split('');
-      enc = enc.concat(enc.splice(0, ringSetting));
+      console.log('doing shit for rotor index', id);
+      const index = alphabet.indexOf(input);
+      let indexWithRingPosition = index + ringPosition;
 
-      outputHandler(id, enc[alphabet.indexOf(input)]);
+      if (indexWithRingPosition > 25) {
+        indexWithRingPosition -= 26;
+      }
+
+      const encodingChar = encoding.charAt(indexWithRingPosition);
+      const indexOfEncodingChar = alphabet.indexOf(encodingChar);
+
+      let indexOfEncodingCharWithRingPosition = indexOfEncodingChar - ringPosition;
+
+      if (indexOfEncodingCharWithRingPosition < 0) {
+        indexOfEncodingCharWithRingPosition += 26;
+      }
+
+      const output = alphabet[indexOfEncodingCharWithRingPosition];
+
+      outputHandler(id, output);
     }
   }, [input]);
 
@@ -60,17 +76,17 @@ export default function Rotor({
       </div>
       Rotor
       {id}
-      <input type="number" min="1" max="26" value={ringSetting + 1} onChange={() => console.log('updating ring setting')} />
+      <input type="number" min="1" max="26" value={ringPosition + 1} onChange={() => console.log('updating ring setting')} />
     </div>
   );
 }
 
 Rotor.propTypes = {
-  id: PropTypes.string.isRequired,
   encoding: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   input: PropTypes.string,
   outputHandler: PropTypes.func.isRequired,
-  ringSetting: PropTypes.number.isRequired,
+  ringPosition: PropTypes.number.isRequired,
 };
 
 Rotor.defaultProps = { input: null };
