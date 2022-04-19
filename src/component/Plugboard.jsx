@@ -18,12 +18,15 @@ export default function Plugboard({
   ));
 
   React.useEffect(() => {
+    let output = null;
+
     if (inputFromKeyboard !== null) {
       console.log('input to plugboard from keyboard:', inputFromKeyboard);
-      const output = plugboardMappings.get(inputFromKeyboard);
+      output = plugboardMappings.get(inputFromKeyboard);
       console.log('output from plugboard to rotor assembly:', output);
-      outputToRotorAssemblyHandler(output);
     }
+
+    outputToRotorAssemblyHandler(output);
   }, [inputFromKeyboard]);
 
   React.useEffect(() => {
