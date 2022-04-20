@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { alphabet } from '../util/alphabet';
+import log from '../middleware/logger';
 
 export const Reflectors = {
   A: {
@@ -24,11 +25,16 @@ export default function Reflector({
   outputHandler,
 }) {
   React.useEffect(() => {
+    let output = null;
+
     if (input !== null) {
-      console.log('input to reflector:', input);
+      log.debug('input to reflector:', input);
       const index = alphabet.indexOf(input);
-      outputHandler(encoding.charAt(index));
+      output = encoding.charAt(index);
+      log.debug('reflector output:', output);
     }
+
+    outputHandler(output);
   }, [input]);
 
   return (

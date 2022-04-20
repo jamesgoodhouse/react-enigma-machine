@@ -30,12 +30,15 @@ export default function Plugboard({
   }, [inputFromKeyboard]);
 
   React.useEffect(() => {
+    let output = null;
+
     if (inputFromRotorAssembly !== null) {
       console.log('input to plugboard from rotor assembly:', inputFromRotorAssembly);
-      const output = plugboardMappings.get(inputFromRotorAssembly);
+      output = plugboardMappings.get(inputFromRotorAssembly);
       console.log('output from plugboard to light panel:', output);
-      outputToLightPanelHandler(output);
     }
+
+    outputToLightPanelHandler(output);
   }, [inputFromRotorAssembly]);
 
   const handlePlugClick = (plug, connectedTo) => {

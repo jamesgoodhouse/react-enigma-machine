@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { alphabet } from '../util/alphabet';
+import log from '../middleware/logger';
 
 export const Rotors = {
   EnigmaI: {
@@ -62,7 +63,7 @@ export default function Rotor({
     let output = null;
 
     if (forwardInput !== null) {
-      console.log('input to rotor %s:', id + 1, forwardInput);
+      log.debug('input to rotor %s:', id + 1, forwardInput);
       output = encodeForward(forwardInput);
     }
 
@@ -73,7 +74,7 @@ export default function Rotor({
     let output = null;
 
     if (reverseInput !== null) {
-      console.log('reverse input to rotor %s:', id + 1, reverseInput);
+      log.debug('reverse input to rotor %s:', id + 1, reverseInput);
       output = encodeReverse(reverseInput);
     }
 
@@ -83,7 +84,7 @@ export default function Rotor({
   return (
     <div className="Rotor">
       Rotor
-      <input type="number" min="1" max="26" value={ringPosition + 1} onChange={() => console.log('updating ring setting')} />
+      <input type="number" min="1" max="26" value={ringPosition + 1} onChange={() => log.debug('updating ring setting')} />
     </div>
   );
 }
