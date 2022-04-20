@@ -36,13 +36,18 @@ export default function RotorAssembly({
     log.debug('incrementing rotor 1');
 
     rs[0] = incrementRotor(rs[0]);
+
     if (rotorRingPositions[0] === alphabet.indexOf(rotors[0].turnoverNotch)) {
       log.debug('incrementing rotor 2');
       rs[1] = incrementRotor(rs[1]);
-      if (rotorRingPositions[1] === alphabet.indexOf(rotors[1].turnoverNotch)) {
-        log.debug('incrementing rotor 3');
-        rs[2] = incrementRotor(rs[2]);
-      }
+    }
+
+    if (rotorRingPositions[1] === alphabet.indexOf(rotors[1].turnoverNotch)) {
+      log.debug('incrementing rotor 2');
+      rs[1] = incrementRotor(rs[1]);
+
+      log.debug('incrementing rotor 3');
+      rs[2] = incrementRotor(rs[2]);
     }
 
     setRotorRingPositions(rs);
