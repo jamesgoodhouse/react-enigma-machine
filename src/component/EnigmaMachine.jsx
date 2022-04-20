@@ -1,6 +1,6 @@
 import React from 'react';
 import RotorAssembly from './RotorAssembly';
-// import LightPanel from './LightPanel';
+import LightPanel from './LightPanel';
 import Keyboard from './Keyboard';
 import Plugboard from './Plugboard';
 import { Rotors } from './Rotor';
@@ -15,9 +15,6 @@ export default function EnigmaMachine() {
 
   return (
     <div className="EnigmaMachine container mx-auto">
-      <div>
-        {plugboardLightPanelOutput}
-      </div>
       <RotorAssembly
         input={plugboardRotorAssemblyOutput}
         outputHandler={setRotorAssemblyOutput}
@@ -28,6 +25,7 @@ export default function EnigmaMachine() {
           Rotors.EnigmaI.III,
         ]}
       />
+      <LightPanel illuminatedLight={plugboardLightPanelOutput} />
       <Keyboard currentKeyHandler={setCurrentKeyPressed} />
       <Plugboard
         inputFromKeyboard={currentKeyPressed}

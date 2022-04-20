@@ -1,18 +1,20 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import Light from './Light';
+import { alphabet } from '../util/alphabet';
 import './LightPanel.css';
 
-export default function LightPanel({ lights }) {
+export default function LightPanel({
+  illuminatedLight,
+}) {
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <div className="LightPanel">
       Light Panel
-      {[...lights.keys()].map((k) => (
+      {alphabet.map((letter) => (
         <Light
-          key={k}
-          letter={k}
-          illuminated={lights.get(k)}
+          key={letter}
+          letter={letter}
+          illuminated={illuminatedLight === letter}
         />
       ))}
     </div>
@@ -20,27 +22,9 @@ export default function LightPanel({ lights }) {
 }
 
 LightPanel.propTypes = {
-  lights: PropTypes.instanceOf(Map).isRequired,
+  illuminatedLight: PropTypes.string,
 };
 
-function Light({ letter, illuminated }) {
-  return (
-    <div
-      className={
-        classNames(
-          'Light',
-          {
-            illuminated,
-          },
-        )
-      }
-    >
-      {letter}
-    </div>
-  );
-}
-
-Light.propTypes = {
-  letter: PropTypes.string.isRequired,
-  illuminated: PropTypes.bool.isRequired,
+LightPanel.defaultProps = {
+  illuminatedLight: null,
 };

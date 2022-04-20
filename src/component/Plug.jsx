@@ -7,9 +7,7 @@ export default function Plug({ letter, connectedTo, plugHandler }) {
   const connecting = connectedTo === null;
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
+    <button
       className={
         classNames(
           'Plug',
@@ -19,10 +17,11 @@ export default function Plug({ letter, connectedTo, plugHandler }) {
           },
         )
       }
+      type="button"
       onClick={() => plugHandler(letter, connectedTo)}
     >
-      {letter} (connects {letter} to {connectedTo === null ? '?' : connectedTo})
-    </div>
+      {letter} (connects{letter} to {connectedTo === null ? '?' : connectedTo})
+    </button>
   );
 }
 

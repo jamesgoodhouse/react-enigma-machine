@@ -105,8 +105,7 @@ export default function Rotor({
 
   return (
     <div className="Rotor">
-      Rotor
-      <input type="number" min="1" max="26" value={rotor.ringPosition + 1} onChange={() => log.debug('updating ring setting')} />
+      Rotor <input type="number" min="1" max="26" value={rotor.ringPosition + 1} onChange={() => log.debug('updating ring setting')} />
     </div>
   );
 }
