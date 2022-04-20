@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Plug from './Plug';
 import { alphabet } from '../util/alphabet';
 import './Plugboard.css';
+import log from '../middleware/logger';
 
 export default function Plugboard({
   inputFromKeyboard,
@@ -21,9 +22,9 @@ export default function Plugboard({
     let output = null;
 
     if (inputFromKeyboard !== null) {
-      console.log('input to plugboard from keyboard:', inputFromKeyboard);
+      log.debug('input to plugboard from keyboard:', inputFromKeyboard);
       output = plugboardMappings.get(inputFromKeyboard);
-      console.log('output from plugboard to rotor assembly:', output);
+      log.debug('output from plugboard to rotor assembly:', output);
     }
 
     outputToRotorAssemblyHandler(output);
@@ -33,9 +34,9 @@ export default function Plugboard({
     let output = null;
 
     if (inputFromRotorAssembly !== null) {
-      console.log('input to plugboard from rotor assembly:', inputFromRotorAssembly);
+      log.debug('input to plugboard from rotor assembly:', inputFromRotorAssembly);
       output = plugboardMappings.get(inputFromRotorAssembly);
-      console.log('output from plugboard to light panel:', output);
+      log.debug('output from plugboard to light panel:', output);
     }
 
     outputToLightPanelHandler(output);
@@ -62,7 +63,7 @@ export default function Plugboard({
     const plug2CurrentMapping = mappings.get(plugMapping[1]);
 
     if (plugMapping[0] === null) {
-      console.log('something went wrong');
+      log.debug('something went wrong');
       return;
     }
 

@@ -21,7 +21,7 @@ describe('rotor assembly — single input', () => {
       input: 'J',
       expectedOutput: 'R',
     },
-  ]
+  ];
 
   tests.forEach((test) => {
     it(test.name, () => {
