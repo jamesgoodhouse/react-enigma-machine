@@ -1,10 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { useRotor, Rotors } from './Rotor';
 
-function useTest() {
-  return { res: true }
-}
-
 describe('rotor', () => {
   describe('forward input encoding', () => {
     const tests = [
@@ -34,20 +30,20 @@ describe('rotor', () => {
         expectedOutput: 'D',
       },
       {
-        ringPosition: 25,
+        ringPosition: 0,
         input: null,
         expectedOutput: null,
       },
     ];
 
     tests.forEach((test) => {
-      it(`'${test.input}' should return '${test.expectedOutput}' with ring position '${test.ringPosition}'`, () => {
+      it(`'${test.input}' should encode to '${test.expectedOutput}' with ring position '${test.ringPosition}'`, () => {
         let output = null;
 
         const outputHandler = (id, o, r) => { if (!r) { output = o; } };
 
         renderHook(() => useRotor({
-          encoding: Rotors.EnigmaI.I.encoding,
+          encoding: 'EKMFLGDQVZNTOWYHXUSPAIBRCJ',
           forwardInput: test.input,
           id: 0,
           outputHandler: outputHandler,
@@ -92,20 +88,20 @@ describe('rotor', () => {
         expectedOutput: 'G',
       },
       {
-        ringPosition: 13,
+        ringPosition: 0,
         input: null,
         expectedOutput: null,
       },
     ];
 
     tests.forEach((test) => {
-      it(`'${test.input}' should return '${test.expectedOutput}' with ring position '${test.ringPosition}'`, () => {
+      it(`'${test.input}' should encode to '${test.expectedOutput}' with ring position '${test.ringPosition}'`, () => {
         let output = null;
 
         const outputHandler = (id, o, r) => { if (r) { output = o; } };
 
         renderHook(() => useRotor({
-          encoding: Rotors.EnigmaI.III.encoding,
+          encoding: 'BDFHJLCPRTXVZNYEIWGAKMUSQO',
           reverseInput: test.input,
           id: 0,
           outputHandler: outputHandler,

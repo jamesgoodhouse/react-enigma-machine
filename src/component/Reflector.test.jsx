@@ -2,39 +2,35 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Reflector, { Reflectors } from './Reflector';
 
-describe('reflector — output', () => {
+describe('reflector', () => {
   const tests = [
     {
-      name: 'should return Y',
       input: 'A',
       expectedOutput: 'Y',
     },
     {
-      name: 'should return Q',
       input: 'E',
       expectedOutput: 'Q',
     },
     {
-      name: 'should return T',
       input: 'Z',
       expectedOutput: 'T',
     },
     {
-      name: 'should return null',
       input: null,
       expectedOutput: null,
     },
   ];
 
   tests.forEach((test) => {
-    it(test.name, () => {
+    it(`'${test.input}' should encode to '${test.expectedOutput}'`, () => {
       let output = null;
 
       const outputHandler = (o) => { output = o; };
 
       render(
         <Reflector
-          encoding={Reflectors.B.encoding}
+          encoding="YRUHQSLDPXNGOKMIEBFZCWVJAT"
           id="reflector"
           input={test.input}
           outputHandler={outputHandler}

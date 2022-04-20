@@ -7,24 +7,21 @@ import { Reflectors } from './Reflector';
 describe('rotor assembly — single input', () => {
   const tests = [
     {
-      name: 'should return F',
       input: 'A',
       expectedOutput: 'F',
     },
     {
-      name: 'should return Y',
       input: 'G',
       expectedOutput: 'Y',
     },
     {
-      name: 'should return R',
       input: 'J',
       expectedOutput: 'R',
     },
   ];
 
   tests.forEach((test) => {
-    it(test.name, () => {
+    it(`'${test.input}' should encode to '${test.expectedOutput}'`, () => {
       let output = null;
 
       const outputHandler = (o) => { output = o; };
