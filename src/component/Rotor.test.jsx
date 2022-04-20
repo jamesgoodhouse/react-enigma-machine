@@ -46,16 +46,14 @@ describe('rotor — forward input', () => {
     it(test.name, () => {
       let output = null;
 
-      const forwardOutputHandler = (id, o) => { output = o; };
-      const reverseOutputHandler = () => {};
+      const outputHandler = (id, o, r) => { if (!r) { output = o; } };
 
       render(
         <Rotor
           encoding={Rotors.EnigmaI.I.encoding}
           forwardInput={test.input}
-          forwardOutputHandler={forwardOutputHandler}
-          id={1}
-          reverseOutputHandler={reverseOutputHandler}
+          id={0}
+          outputHandler={outputHandler}
           ringPosition={test.ringPosition}
         />,
       );
@@ -115,16 +113,14 @@ describe('rotor — reverse input', () => {
     it(test.name, () => {
       let output = null;
 
-      const forwardOutputHandler = () => {};
-      const reverseOutputHandler = (id, o) => { output = o; };
+      const outputHandler = (id, o, r) => { if (r) { output = o; } };
 
       render(
         <Rotor
           encoding={Rotors.EnigmaI.III.encoding}
-          forwardOutputHandler={forwardOutputHandler}
           id={1}
+          outputHandler={outputHandler}
           reverseInput={test.input}
-          reverseOutputHandler={reverseOutputHandler}
           ringPosition={test.ringPosition}
         />,
       );
