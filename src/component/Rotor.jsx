@@ -23,14 +23,14 @@ export const Rotors = {
   },
 };
 
-export default function Rotor({
+export const useRotor = ({
   encoding,
   forwardInput,
   id,
   reverseInput,
   outputHandler,
   ringPosition,
-}) {
+}) => {
   const encode = (input, reverse) => {
     const index = alphabet.indexOf(input);
     let indexWithRingPosition = index + ringPosition;
@@ -81,10 +81,32 @@ export default function Rotor({
     outputHandler(id, output, true);
   }, [reverseInput]);
 
+  return {
+    ringPosition,
+  };
+};
+
+export default function Rotor({
+  encoding,
+  forwardInput,
+  id,
+  reverseInput,
+  outputHandler,
+  ringPosition,
+}) {
+  const rotor = useRotor({
+    encoding,
+    forwardInput,
+    id,
+    reverseInput,
+    outputHandler,
+    ringPosition,
+  });
+
   return (
     <div className="Rotor">
       Rotor
-      <input type="number" min="1" max="26" value={ringPosition + 1} onChange={() => log.debug('updating ring setting')} />
+      <input type="number" min="1" max="26" value={rotor.ringPosition + 1} onChange={() => log.debug('updating ring setting')} />
     </div>
   );
 }
