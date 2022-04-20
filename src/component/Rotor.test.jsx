@@ -1,5 +1,6 @@
+/* global describe, expect, it */
 import { renderHook } from '@testing-library/react';
-import { useRotor, Rotors } from './Rotor';
+import { useRotor } from './Rotor';
 
 describe('rotor', () => {
   describe('forward input encoding', () => {
@@ -46,7 +47,7 @@ describe('rotor', () => {
           encoding: 'EKMFLGDQVZNTOWYHXUSPAIBRCJ',
           forwardInput: test.input,
           id: 0,
-          outputHandler: outputHandler,
+          outputHandler,
           ringPosition: test.ringPosition,
         }));
 
@@ -104,7 +105,7 @@ describe('rotor', () => {
           encoding: 'BDFHJLCPRTXVZNYEIWGAKMUSQO',
           reverseInput: test.input,
           id: 0,
-          outputHandler: outputHandler,
+          outputHandler,
           ringPosition: test.ringPosition,
         }));
 

@@ -1,3 +1,4 @@
+/* global describe, expect, it */
 import React from 'react';
 import { render } from '@testing-library/react';
 import RotorAssembly from './RotorAssembly';
@@ -86,7 +87,7 @@ describe('rotor assembly — multiple inputs in a row', () => {
         }
       };
 
-      const {rerender} = render(
+      const { rerender } = render(
         <RotorAssembly
           input={inputs.shift()}
           outputHandler={outputHandler}

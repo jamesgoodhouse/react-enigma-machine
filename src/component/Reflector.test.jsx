@@ -1,6 +1,7 @@
+/* global describe, expect, it */
 import React from 'react';
 import { render } from '@testing-library/react';
-import Reflector, { Reflectors } from './Reflector';
+import Reflector from './Reflector';
 
 describe('reflector', () => {
   const tests = [
